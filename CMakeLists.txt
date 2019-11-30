@@ -1,63 +1,47 @@
 cmake_minimum_required(VERSION 2.6)
-project(CAMERA)
+project(MYENGINE)
 
-include_directories(
-  contrib
+include_directories(src SoundFile)
+
+add_library(rend
+  src/rend/Exception.cpp
+  src/rend/Context.cpp
+  src/rend/Texture.cpp
+  src/rend/RenderTexture.cpp
+  src/rend/Shader.cpp
+  src/rend/Buffer.cpp
+  src/rend/Mesh.cpp
+  src/rend/Util.cpp
 )
-
-if(MSVC)
-  include_directories(
-    contrib/msvc-windows-x86/glew/include
-    contrib/msvc-windows-x86/SDL2/include
-  )
-  link_directories(
-    ${CMAKE_SOURCE_DIR}/contrib/msvc-windows-x86/SDL2/lib
-    ${CMAKE_SOURCE_DIR}/contrib/msvc-windows-x86/glew/lib
-  )
+if (MSVC)
+target_link_libraries(rend glew32 opengl32 OpenAL32)
 else()
-  include_directories(
-    /usr/X11R6/include
-    /usr/local/include
-  )
-  link_directories(
-    /usr/X11R6/lib
-    /usr/local/lib
-  )
+target_link_libraries(rend GLEW GL)
 endif()
 
-if(MSVC)
-  add_definitions(-DSDL_MAIN_HANDLED)
-endif()
 
-add_executable(camera
-  src/main.cpp
-  src/VertexBuffer.cpp
-  src/VertexArray.cpp
-  src/ShaderProgram.cpp
-  src/Texture.cpp
-  contrib/stb_image/stb_image.cpp
+add_library(engine
+src/engine/Application.h
+src/engine/Application.cpp
+src/engine/Entity.h
+src/engine/Entity.cpp
+src/engine/Component.h
+src/engine/Component.cpp
+src/engine/Renderer.h
+src/engine/Renderer.cpp
+src/engine/stb_image.h
+src/engine/Audio.h
+src/engine/Audio.cpp
+src/engine/Camera.cpp
+src/engine/Camera.h
+src/engine/Transform.h
+src/engine/Transform.cpp
+src/engine/Environment.h
+src/engine/Environment.cpp
 )
+target_link_libraries(engine SDL2 rend OpenAL32)
 
-if(MSVC)
-  target_link_libraries(camera
-    SDL2 glew32 opengl32
-  )
-else()
-  target_link_libraries(camera
-    SDL2 GLU GLEW GL
-  )
-endif()
-
-if(MSVC)
-  add_custom_command(TARGET camera POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-      "${CMAKE_SOURCE_DIR}/contrib/msvc-windows-x86/SDL2/bin/SDL2.dll"
-      "$<TARGET_FILE_DIR:camera>"
-  )
-
-  add_custom_command(TARGET camera POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-      "${CMAKE_SOURCE_DIR}/contrib/msvc-windows-x86/glew/bin/glew32.dll"
-      "$<TARGET_FILE_DIR:camera>"
-  )
-endif()
+add_executable(game
+	src/game/main.cpp
+)
+target_link_libraries(game engine)
