@@ -1,41 +1,41 @@
-#define STB_IMAGE_IMPLEMENTATION
-#include <GL/glew.h>
-
-#include "Renderer.h"
-#include "Entity.h"
-
-#include <exception>
-
-#include <fstream>
-#include "stb_image.h"
-
-
-Renderer::Renderer()
-{
-
-}
-
-
-void Renderer::onDisplay()
-{
-	//angle += 0.5f;
-
-	//std::sr1::shared_ptr<Entity> ent = getEntity();
-	//std::sr1::shared_ptr<Transform> transform = ent->getComponent<Transform>();
-
-	////add transform
-	////transform->AddRotation(0.5f, 0, 0);
-
-	//glClearColor(0.10f, 0.15f, 0.25f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//shader->setUniform("u_Projection", camera->getProjection());
-
-	//shader->setUniform("u_Model", transform->GetModel());
-
-	//shader->setMesh(mesh);
-	//shader->render();
-}
-
+//#define STB_IMAGE_IMPLEMENTATION
+//#include <GL/glew.h>
+//
+//#include "Renderer.h"
+//#include "Entity.h"
+//
+//#include <exception>
+//
+//#include <fstream>
+//#include "stb_image.h"
+//
+//
+//Renderer::Renderer()
+//{
+//
+//}
+//
+//
+//void Renderer::onDisplay()
+//{
+//	angle += 0.5f;
+//
+//	std::sr1::shared_ptr<Entity> ent = getEntity();
+//	std::sr1::shared_ptr<Transform> transform = ent->getComponent<Transform>();
+//
+//	//add transform
+//	//transform->AddRotation(0.5f, 0, 0);
+//
+//	glClearColor(0.10f, 0.15f, 0.25f, 1.0f);
+//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//	shader->setUniform("u_Projection", camera->getProjection());
+//
+//	shader->setUniform("u_Model", transform->GetModel());
+//
+//	shader->setMesh(mesh);
+//	shader->render();
+//}
+//
 //void Renderer::RenderInitialise(char* _shader, char* _model, char* _texture, std::shared_ptr<Camera> _camera)
 //{
 //	std::sr1::shared_ptr<Application> app = getApp();
@@ -102,8 +102,8 @@ void Renderer::onDisplay()
 //	}
 //
 //}
-
-Renderer::~Renderer()
-{
-	
-}
+//
+//Renderer::~Renderer()
+//{
+//	
+//}

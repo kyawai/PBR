@@ -3,7 +3,6 @@
 
 #include <memory>
 #include "Application.h"
-#include "Component.h"
 #include <vector>
 class Component;
 class Application;
@@ -15,10 +14,11 @@ class Entity
 	friend Application;
 	std::weak_ptr<Application> app;
 	std::vector<std::shared_ptr<Component>> components;
+	std::shared_ptr<Entity> self;
 
 public:
-	std::shared_ptr<Entity> self;
-	std::shared_ptr<Application> getApp;
+
+	//std::shared_ptr<Application> app;
 	template<class T>
 	std::shared_ptr<T> getComponent()
 	{
@@ -31,12 +31,13 @@ public:
 					{
 							return rtn;
 					}
+
 					
 			}
 			if(!rtn)
 			{
 					throw rend::Exception("Failed To Find Component Of Specified Type");
-			}
+		  }
 	}
 
 	template<class T>

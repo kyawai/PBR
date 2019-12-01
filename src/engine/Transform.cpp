@@ -4,6 +4,16 @@ Transform::~Transform()
 {
 }
 
+Transform::Transform()
+{
+		rotY = 0.0f;
+		rotX = 0.0f;
+		rotZ = 0.0f;
+		pos = glm::vec3(0.0f, 0.0f, 0.0f);;
+		scale = glm::vec3(1.0f, 1.0f, 1.0f);
+		model = glm::mat4(1.0f);
+}
+
 glm::mat4 Transform::GetModel()
 {
 		model = glm::mat4(1.0f);
@@ -17,7 +27,7 @@ glm::mat4 Transform::GetModel()
 
 glm::vec3 Transform::getPos()
 {
-		return glm::vec3();
+		return pos;
 }
 
 void Transform::SetPos(glm::vec3 _pos)

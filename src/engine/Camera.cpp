@@ -10,9 +10,9 @@ void Camera::CamIni(float _angle)
 {
 		angle = _angle;
 		pos = glm::mat4(1.0f);
-		std::sr1::shared_ptr<Entity> ent = getEntity();
-		std::sr1::shared_ptr<Transform> tranform = ent->getComponent<Transform>();
-		camPos = tranform->getPos();
+		std::sr1::shared_ptr<Entity> entity = getEntity();
+		std::sr1::shared_ptr<Transform> transform = entity->getComponent<Transform>();
+		camPos = transform->getPos();
 }
 
 glm::mat4 Camera::getView()

@@ -2,10 +2,6 @@
 #define _CAMERA_H_
 
 #include "Component.h"
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/mat4x4.hpp>
-#include <glm/vec4.hpp>
-#include <glm/vec3.hpp>
 #include "Application.h"
 
 class Camera : public Component

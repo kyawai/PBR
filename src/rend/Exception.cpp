@@ -22,19 +22,19 @@ const char* Exception::what() const throw()
 void pollForError()
 {
   //while(true)
-  {
-    GLenum err = glGetError();
+  //{
+  //  GLenum err = glGetError();
 
-    if(err == GL_NO_ERROR)
-    {
-      //break;
-      return;
-    }
+  //  if(err == GL_NO_ERROR)
+  //  {
+  //    //break;
+  //    return;
+  //  }
 
-    throw Exception("OpenGL emitted an error");
+  //  throw Exception("OpenGL emitted an error");
     //throw Exception((char*)gluErrorString(err));
     //std::cout << "Warning: " << (char*)gluErrorString(err) << std::endl;
-  }
+  //}
 }
 
 }

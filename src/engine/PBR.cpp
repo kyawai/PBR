@@ -2,6 +2,7 @@
 #include "PBR.h"
 #include <GL/glew.h>
 #include <fstream>
+#include "Entity.h"
 
 #define WINDOW_WIDTH 1080
 #define WINDOW_HEIGHT 1020
@@ -35,27 +36,25 @@ PBR::~PBR()
 void PBR::onDisplay()
 {
 		std::sr1::shared_ptr<Entity> ent = getEntity();
-		std::sr1::shared_ptr<Transform> transform = ent->getComponent<Transform>();
+		std::sr1::shared_ptr<Transform> trans = ent->getComponent<Transform>();
 		std::sr1::shared_ptr<Application> app = getApp();
 
 		glClearColor(0.10f, 0.15f, 0.25f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glm::mat4 view = camera->getView();
-		shader->setUniform("view", view);
-		shader->setUniform("camPos", camera->getPos());
+		shader->setUniform("view", camera->getView());
 		shader->setUniform("u_Projection", camera->getProjection());
-		shader->setUniform("u_Model", transform->GetModel());
-		shader->setUniform("albedo", albedo);
+		shader->setUniform("u_Model", trans->GetModel());
 		shader->setUniform("metallic", metallic);
+		shader->setUniform("albedo", albedo);
 		shader->setUniform("roughness", roughness);
 		shader->setUniform("ao", ao);
-
+		shader->setUniform("camPos", camera->getPos());
 		for (unsigned int i = 0; i < sizeof(lightPos) / sizeof(lightPos[0]); i++)
 		{
 				glm::vec3 newPos = lightPos[i] + glm::vec3(sin(app->deltaTime*5.0)*5.0, 0.0, 0.0);
 				newPos = lightPos[i];
-				shader->setUniform("lightPos[" + std::to_string(i) + "]", newPos);
+				shader->setUniform("lightPos[" + std::to_string(i) + "]", lightPos[i]);
 				shader->setUniform("lightColours[" + std::to_string(i) + "]", lightColours[i]);
 		}
 
@@ -78,7 +77,7 @@ void PBR::PBRIni(char * _shader, char * _model, char * _texture, std::shared_ptr
 		shader = app->context->createShader();
 		{
 				std::ifstream f(_shader);
-				if (!f.is_open());
+				if (!f.is_open())
 				{
 						throw rend::Exception("cant open shader for PBR");
 				}
