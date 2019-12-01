@@ -76,7 +76,12 @@ std::shared_ptr<Entity> Application::AddEntity()
 
 void Application::Run()
 {
-		std::sr1::shared_ptr<Transform> transform = entities[0]->getComponent<Transform>();
+		time = SDL_GetTicks();
+		diff = time - lastTime;
+		deltaTime = diff / 1000;
+		std::cout << deltaTime << std::endl;
+
+	std::sr1::shared_ptr<Transform> transform = entities[0]->getComponent<Transform>();
 	bool quit = false;
 	while (!quit)
 	{

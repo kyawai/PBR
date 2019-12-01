@@ -32,6 +32,12 @@ public:
 	std::shared_ptr<Entity> AddEntity();
 	void Stop();
 	~Application();
+
+
+	float lastTime;
+	float time;
+	float diff;
+	float deltaTime;
 };
 
 #endif // !_APPLICATION_H_
