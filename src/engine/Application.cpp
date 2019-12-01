@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Application.h"
 
+
 #define WINDOW_WIDTH 1080
 #define WINDOW_HEIGHT 1020
 
@@ -75,7 +76,7 @@ std::shared_ptr<Entity> Application::AddEntity()
 
 void Application::Run()
 {
-
+		std::sr1::shared_ptr<Transform> transform = entities[0]->getComponent<Transform>();
 	bool quit = false;
 	while (!quit)
 	{
@@ -86,10 +87,25 @@ void Application::Run()
 			{
 				quit = true;
 			}
+			else if (event.type == SDL_KEYDOWN)   //KEYS USABLE WHILE INGAME
+			{
+					switch (event.key.keysym.sym)
+					{
+					case SDLK_d:
+							std::cout << "going right" << std::endl;
+							transform->AddPos(glm::vec3(1, 0, 0));
+							break;
+					case SDLK_a:
+							std::cout << "going left" << std::endl;
+							transform->AddPos(glm::vec3(-1, 0, 0));
+							break;
+					}
+			}
 		}
 		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin(); it != entities.end(); it++)
 		{
 			(*it)->tick();
+
 		//	std::cout << "entity tick" << std::endl;
 		}
 

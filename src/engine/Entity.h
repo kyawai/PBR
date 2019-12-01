@@ -20,6 +20,26 @@ public:
 	std::shared_ptr<Entity> self;
 	std::shared_ptr<Application> getApp;
 	template<class T>
+	std::shared_ptr<T> getComponent()
+	{
+			std::shared_ptr<T> rtn;
+			for (std::vector<std::shared_ptr<Component>>::iterator it = components.begin(); it != components.end(); it++)
+			{
+					rtn = std::dynamic_pointer_cast<T>(*it);
+
+					if (rtn)
+					{
+							return rtn;
+					}
+					
+			}
+			if(!rtn)
+			{
+					throw rend::Exception("Failed To Find Component Of Specified Type");
+			}
+	}
+
+	template<class T>
 	std::shared_ptr<T> addComponent()
 	{
 		std::shared_ptr<T> ret = std::make_shared<T>();

@@ -21,17 +21,16 @@ void Renderer::onDisplay()
 	angle += 0.5f;
 
 	std::sr1::shared_ptr<Entity> ent = getEntity();
+	std::sr1::shared_ptr<Transform> transform = ent->getComponent<Transform>();
 
 	//add transform
-
+	//transform->AddRotation(0.5f, 0, 0);
 
 	glClearColor(0.10f, 0.15f, 0.25f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shader->setUniform("u_Projection", camera->getProjection());
 
-	shader->setUniform("u_Model", glm::rotate(glm::mat4(1.0f), glm::radians(10.0f), glm::vec3(1, 0, 0)) *
-	glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0, 1, 0)) *
-	glm::translate(glm::mat4(1.0f), glm::vec3(5, -2, 45)));
+	shader->setUniform("u_Model", transform->GetModel());
 
 	shader->setMesh(mesh);
 	shader->render();
