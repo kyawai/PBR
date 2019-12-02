@@ -27,7 +27,7 @@ class PBR : public Component
 		float ao;
 		glm::vec3 camPos;
 		glm::vec3 lightPos[4];
-		glm::vec3 lightColour[4];
+		glm::vec3 lightColours[4];
 
 
 

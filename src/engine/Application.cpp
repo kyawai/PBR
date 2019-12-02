@@ -76,15 +76,15 @@ std::shared_ptr<Entity> Application::AddEntity()
 
 void Application::Run()
 {
-		time = SDL_GetTicks();
-		diff = time - lastTime;
-		deltaTime = diff / 1000;
-		std::cout << deltaTime << std::endl;
+
 
 	std::sr1::shared_ptr<Transform> transform = entities[0]->getComponent<Transform>();
 	bool quit = false;
 	while (!quit)
 	{
+		time = SDL_GetTicks();
+		diff = time - lastTime;
+		deltaTime = diff / 1000;
 		SDL_Event event = { 0 };
 		while (SDL_PollEvent(&event))
 		{
@@ -98,11 +98,11 @@ void Application::Run()
 					{
 					case SDLK_d:
 							std::cout << "going right" << std::endl;
-							transform->AddPos(glm::vec3(1, 0, 0));
+							transform->AddPos(glm::vec3(0.5, 0, 0));
 							break;
 					case SDLK_a:
 							std::cout << "going left" << std::endl;
-							transform->AddPos(glm::vec3(-1, 0, 0));
+							transform->AddPos(glm::vec3(-0.5, 0, 0));
 							break;
 					}
 			}

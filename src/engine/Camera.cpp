@@ -17,7 +17,10 @@ void Camera::CamIni(float _angle)
 
 glm::mat4 Camera::getView()
 {
-		return view;
+	std::sr1::shared_ptr<Entity> entity = getEntity();
+	std::sr1::shared_ptr<Transform> transform = entity->getComponent<Transform>();
+	view = glm::inverse(transform->GetModel());
+	return view;
 }
 
 glm::vec3 Camera::getPos()
