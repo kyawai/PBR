@@ -42,14 +42,15 @@ void PBR::onDisplay()
 		glClearColor(0.10f, 0.15f, 0.25f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		shader->setUniform("view", camera->getView());
-		shader->setUniform("u_Projection", camera->getProjection());
-		shader->setUniform("u_Model", trans->GetModel());
-		shader->setUniform("metallic", metallic);
-		shader->setUniform("albedo", albedo);
 		shader->setUniform("roughness", roughness);
-		shader->setUniform("ao", ao);
+		shader->setUniform("u_Projection", camera->getProjection());
+		shader->setUniform("view", camera->getView());
+		shader->setUniform("u_Model", trans->GetModel());
+		shader->setUniform("albedo", albedo);
+		shader->setUniform("metallic", metallic);
 		shader->setUniform("camPos", camera->getPos());
+		shader->setUniform("ao", ao);
+
 		for (unsigned int i = 0; i < sizeof(lightPos) / sizeof(lightPos[0]); i++)
 		{
 				glm::vec3 newPos = lightPos[i] + glm::vec3(sin(app->deltaTime*5.0)*5.0, 0.0, 0.0);

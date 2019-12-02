@@ -262,11 +262,11 @@ namespace rend
 			glGetActiveUniform(id, rtn->loc, 0, &unusedA, &unusedB, &rtnType, NULL);
 			pollForError();
 
-			if (rtnType != type)
-			{
-				throw Exception("The requested uniform [" + name + "] had the wrong type [" +
-					VariableInfo::convertType(rtn->type) + "]");
-			}
+			//if (rtnType != type)
+			//{
+			//	throw Exception("The requested uniform [" + name + "] had the wrong type [" +
+			//		VariableInfo::convertType(rtn->type) + "]");
+			//}
 		}
 		else
 		{
