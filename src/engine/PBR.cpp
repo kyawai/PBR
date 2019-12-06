@@ -44,19 +44,16 @@ void PBR::onDisplay()
 		glClearColor(0.10f, 0.15f, 0.25f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		shader->setUniform("roughness", roughness);
+		shader->setUniform("camPos", camera->getPos());
 		shader->setUniform("u_Projection", camera->getProjection());
 		shader->setUniform("view", camera->getView());
 		shader->setUniform("u_Model", trans->GetModel());
-		shader->setUniform("albedo", albedo);
-		shader->setUniform("metallic", metallic);
-		shader->setUniform("camPos", camera->getPos());
-		shader->setUniform("ao", ao);
+
+
 
 		for (unsigned int i = 0; i < sizeof(lightPos) / sizeof(lightPos[0]); i++)
 		{
 				glm::vec3 newPos = lightPos[i] + glm::vec3(sin(app->deltaTime*5.0)*5.0, 0.0, 0.0);
-				//newPos = lightPos[i];
 				shader->setUniform("lightPos[" + std::to_string(i) + "]", lightPos[i]);
 				shader->setUniform("lightColours[" + std::to_string(i) + "]", lightColours[i]);
 		}
@@ -68,13 +65,49 @@ void PBR::onDisplay()
 
 }
 
-void PBR::PBRIni(char * _shader, char * _model, char * _texture, std::shared_ptr<Camera> _camera, glm::vec3 _albedo, float _metallic, float _roughness, float _ao)
+std::sr1::shared_ptr < rend::Texture> PBR::MakeTexture(const char * _filepath)
 {
-		metallic = _metallic;
-		albedo = _albedo;
-		roughness = _roughness;
-		ao = _ao;
+	std::sr1::shared_ptr<Application> app = getApp();
+	texture = app->context->createTexture();
+	{
+		int w = 0;
+		int h = 0;
+		int bpp = 0;
+
+		unsigned char* data = stbi_load(_filepath, &w, &h, &bpp, 3);
+		if (!data)
+		{
+			throw rend::Exception("cant load texture");
+		}
+		texture->setSize(w, h);
+
+		for (int y = 0; y < h; y++)
+		{
+			for (int x = 0; x < w; x++)
+			{
+				int size = y * w * 3 + x * 3;
+
+				texture->setPixel(x, y, glm::vec3(data[size] / 255.0f, data[size + 1] / 255.0f, data[size + 2] / 255.0f));
+
+			}
+		}
+		stbi_image_free(data);
+	}
+	return texture;
+}
+
+
+
+void PBR::PBRIni(char * _shader, char * _model, char * _texture, std::shared_ptr<Camera> _camera, char* _albedo, char* _metallic, char* _roughness, char* _ao, char* _normal)
+{
+
+		albedoT = MakeTexture(_albedo);
+		metallicT = MakeTexture(_metallic);
+		roughnessT = MakeTexture(_roughness);
+		aoT = MakeTexture(_ao);
+		normalT = MakeTexture(_normal);
 		camera = _camera;
+
 
 		std::sr1::shared_ptr<Application> app = getApp();
 		shader = app->context->createShader();
@@ -110,30 +143,10 @@ void PBR::PBRIni(char * _shader, char * _model, char * _texture, std::shared_ptr
 				}
 				mesh->parse(modelTxt);
 		}
-		texture = app->context->createTexture();
-		{
-				int w = 0;
-				int h = 0;
-				int bpp = 0;
+		mesh->setTexture("albedo", albedoT);
+		mesh->setTexture("metallic", metallicT);
+		mesh->setTexture("roughness", roughnessT);
+		mesh->setTexture("ao", aoT);
+		mesh->setTexture("normalMap", normalT);
 
-				unsigned char* data = stbi_load(_texture, &w, &h, &bpp, 3);
-				if (!data)
-				{
-						throw rend::Exception("cant load texture");
-				}
-				texture->setSize(w, h);
-
-				for (int y = 0; y < h; y++)
-				{
-						for (int x = 0; x < w; x++)
-						{
-								int size = y * w * 3 + x * 3;
-
-								texture->setPixel(x, y, glm::vec3(data[size] / 255.0f, data[size + 1] / 255.0f, data[size + 2] / 255.0f));
-
-						}
-				}
-				stbi_image_free(data);
-				mesh->setTexture("u_Texture", texture);
-		}
 }

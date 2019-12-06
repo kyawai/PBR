@@ -21,10 +21,13 @@ class PBR : public Component
 		std::sr1::shared_ptr<Camera> camera;
 
 
-		glm::vec3 albedo;
-		float metallic;
-		float roughness;
-		float ao;
+		std::sr1::shared_ptr < rend::Texture> albedoT;
+		std::sr1::shared_ptr < rend::Texture> metallicT;
+		std::sr1::shared_ptr < rend::Texture> roughnessT;
+		std::sr1::shared_ptr < rend::Texture> aoT;
+		std::sr1::shared_ptr < rend::Texture> normalT;
+
+
 		glm::vec3 camPos;
 		glm::vec3 lightPos[4];
 		glm::vec3 lightColours[4];
@@ -34,8 +37,9 @@ class PBR : public Component
 public:
 		PBR();
 		~PBR();
-		void PBRIni(char* _shader, char* _model, char* _texture, std::shared_ptr<Camera> _camera, glm::vec3 _albedo, float _metallic, float _roughness, float _ao);
+		void PBRIni(char* _shader, char* _model, char* _texture, std::shared_ptr<Camera> _camera, char* _albedo, char* _metallic, char* _roughness, char* _ao, char* _normal);
 		void onDisplay();
+		std::sr1::shared_ptr < rend::Texture> MakeTexture(const char * filepath);
 
 
 		 

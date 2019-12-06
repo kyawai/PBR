@@ -26,7 +26,7 @@ int main()
 	transform->SetPos(glm::vec3(0, -2, 0));
 
 	std::shared_ptr<PBR> rend = ent->addComponent<PBR>();
-	rend->PBRIni("../shaders/newShader.txt", "../models/pbrSphere.obj", "../models/red.png", camera, glm::vec3(0.5f,0,0), 0.0f, 0.0f, 0.0f);
+	rend->PBRIni("../shaders/newShader.txt", "../models/pbrSphere.obj", "../models/AlbedoTexture.png", camera, "../models/AlbedoTexture.png","../models/MetalTexture.png", "../models/RoughnessTexture.png", "../models/AoTexture.png", "../models/NormalTexture.png");
 
 	std::shared_ptr<Audio> sound = ent->addComponent<Audio>();
 	sound->AudioInit("../sounds/0229.ogg");
