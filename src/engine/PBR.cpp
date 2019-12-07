@@ -23,10 +23,10 @@ PBR::PBR()
 
 	
 	
-	lightColours[0] = glm::vec3(100.0f, 100.0f, 100.0f);
-	lightColours[1] = glm::vec3(0.0f, 0.0f, 0.0f);
-	lightColours[2] = glm::vec3(0.0f, 0.0f, 0.0f);
-	lightColours[3] = glm::vec3(0.0f, 0.0f, 0.0f);
+	lightColours[0] = glm::vec3(50.0f, 50.0f, 50.0f);
+	lightColours[1] = glm::vec3(50.0f, 50.0f, 50.0f);
+	lightColours[2] = glm::vec3(50.0f, 50.0f, 50.0f);
+	lightColours[3] = glm::vec3(50.0f, 50.0f, 50.0f);
 	
 
 }
@@ -143,10 +143,10 @@ void PBR::PBRIni(char * _shader, char * _model, char * _texture, std::shared_ptr
 				}
 				mesh->parse(modelTxt);
 		}
-		mesh->setTexture("albedo", albedoT);
-		mesh->setTexture("metallic", metallicT);
-		mesh->setTexture("roughness", roughnessT);
-		mesh->setTexture("ao", aoT);
+		mesh->setTexture("albedoMap", albedoT);
+		mesh->setTexture("metallicMap", metallicT);
+		mesh->setTexture("roughnessMap", roughnessT);
+		mesh->setTexture("aoMap", aoT);
 		mesh->setTexture("normalMap", normalT);
 
 }
