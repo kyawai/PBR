@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Application.h"
-
+#include "PBR.h"
 
 #define WINDOW_WIDTH 1080
 #define WINDOW_HEIGHT 1020
@@ -79,6 +79,8 @@ void Application::Run()
 
 
 	std::sr1::shared_ptr<Transform> transform = entities[0]->getComponent<Transform>();
+	std::sr1::shared_ptr<Camera> camRot = entities[0]->getComponent<Camera>();
+	std::sr1::shared_ptr<PBR> pbr = entities[0]->getComponent<PBR>();
 	bool quit = false;
 	while (!quit)
 	{
@@ -98,11 +100,10 @@ void Application::Run()
 					{
 					case SDLK_d:
 							std::cout << "going right" << std::endl;
-							transform->AddPos(glm::vec3(0.5, 0, 0));
 							break;
 					case SDLK_a:
 							std::cout << "going left" << std::endl;
-							transform->AddPos(glm::vec3(-0.5, 0, 0));
+							pbr->SetPosition(glm::vec3(-10, 0, -10));
 							break;
 					}
 			}

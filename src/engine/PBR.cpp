@@ -3,6 +3,8 @@
 #include <GL/glew.h>
 #include <fstream>
 #include "Entity.h"
+#include "glm/ext.hpp"
+#include "glm/gtx/string_cast.hpp"
 
 #define WINDOW_WIDTH 1080
 #define WINDOW_HEIGHT 1020
@@ -23,7 +25,7 @@ PBR::PBR()
 
 	
 	
-	lightColours[0] = glm::vec3(100.0f, 100.0f, 100.0f);
+	lightColours[0] = glm::vec3(300.0f, 300.0f, 300.0f);
 	lightColours[1] = glm::vec3(0.0f, 0.0f, 0.0f);
 	lightColours[2] = glm::vec3(0.0f,0.0f, 0.0f);
 	lightColours[3] = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -41,7 +43,7 @@ void PBR::onDisplay()
 		std::sr1::shared_ptr<Transform> trans = ent->getComponent<Transform>();
 		std::sr1::shared_ptr<Application> app = getApp();
 
-		glClearColor(0.10f, 0.15f, 0.25f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shader->setUniform("u_Projection", camera->getProjection());
 		shader->setUniform("view", camera->getView());
@@ -52,16 +54,27 @@ void PBR::onDisplay()
 		for (unsigned int i = 0; i < sizeof(lightPos) / sizeof(lightPos[0]); i++)
 		{
 				glm::vec3 newPos = lightPos[i] + glm::vec3(sin(app->deltaTime*5.0)*5.0, 0.0, 0.0);
-				shader->setUniform("lightPos[" + std::to_string(i) + "]", lightPos[i] += glm::vec3(5.0,0.0,0.0));
+				shader->setUniform("lightPos[" + std::to_string(i) + "]", curLightPos);
 				shader->setUniform("lightColours[" + std::to_string(i) + "]", lightColours[i]);
 		}
 		shader->setUniform("u_Model", trans->GetModel());
 
+		std::cout << " light pos: " << glm::to_string(curLightPos)<< std::endl;
 		shader->setMesh(mesh);
 		shader->render();
 	
 
 
+}
+
+glm::vec3 PBR::getPosition()
+{
+	return curLightPos;
+}
+
+void PBR::SetPosition(glm::vec3 _lightPosition)
+{
+	curLightPos += _lightPosition;
 }
 
 std::sr1::shared_ptr < rend::Texture> PBR::MakeTexture(const char * _filepath)

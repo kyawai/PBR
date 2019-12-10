@@ -33,3 +33,10 @@ glm::mat4 Camera::getProjection()
 		projection = glm::perspective(glm::radians(angle), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
 		return projection;
 }
+
+void Camera::AddRotCam(float _rotY, float _rotX, float _rotZ)
+{
+	rotY += _rotY;
+	rotX += _rotX;
+	rotZ += _rotZ;
+}

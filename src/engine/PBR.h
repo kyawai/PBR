@@ -27,7 +27,7 @@ class PBR : public Component
 		std::sr1::shared_ptr < rend::Texture> aoT;
 		std::sr1::shared_ptr < rend::Texture> normalT;
 
-
+		glm::vec3 curLightPos = glm::vec3(0, 0, 0);
 		glm::vec3 camPos;
 		glm::vec3 lightPos[4];
 		glm::vec3 lightColours[4];
@@ -40,6 +40,8 @@ public:
 		~PBR();
 		void PBRIni(char* _shader, char* _model, char* _texture, std::shared_ptr<Camera> _camera, char* _albedo, char* _metallic, char* _roughness, char* _ao, char* _normal);
 		void onDisplay();
+		glm::vec3 getPosition();
+		void SetPosition(glm::vec3 _lightPosition);
 		std::sr1::shared_ptr < rend::Texture> MakeTexture(const char * filepath);
 
 

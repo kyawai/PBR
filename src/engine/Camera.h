@@ -11,6 +11,12 @@ class Camera : public Component
 		glm::mat4 projection;
 		float angle;
 		glm::vec3 camPos;
+		glm::vec3 camRot;
+		glm::mat4 model;
+		float rotY;
+		float rotX;
+		float rotZ;
+
 
 public:
 		~Camera();
@@ -18,6 +24,7 @@ public:
 		glm::mat4 getView();
 		glm::vec3 getPos();
 		glm::mat4 getProjection();
+		void AddRotCam(float _rotY, float _rotX, float _rotZ);
 
 
 };
