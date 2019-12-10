@@ -15,7 +15,7 @@ PBR::PBR()
 {
 	
 	
-	lightPos[0] = glm::vec3(0.0f, -2.0f, 5.0f);
+	lightPos[0] = glm::vec3(0.0f, 0.0f, 1.0f);
 	lightPos[1] = glm::vec3(10.0f, 10.0f, 10.0f);
 	lightPos[2] = glm::vec3(-10.0f, -10.0f, 10.0f);
 	lightPos[3] = glm::vec3(10.0f, -10.0f, 10.0f);
@@ -23,10 +23,10 @@ PBR::PBR()
 
 	
 	
-	lightColours[0] = glm::vec3(50.0f, 50.0f, 50.0f);
-	lightColours[1] = glm::vec3(50.0f, 50.0f, 50.0f);
-	lightColours[2] = glm::vec3(50.0f, 50.0f, 50.0f);
-	lightColours[3] = glm::vec3(50.0f, 50.0f, 50.0f);
+	lightColours[0] = glm::vec3(100.0f, 100.0f, 100.0f);
+	lightColours[1] = glm::vec3(0.0f, 0.0f, 0.0f);
+	lightColours[2] = glm::vec3(0.0f,0.0f, 0.0f);
+	lightColours[3] = glm::vec3(0.0f, 0.0f, 0.0f);
 	
 
 }
@@ -43,20 +43,19 @@ void PBR::onDisplay()
 
 		glClearColor(0.10f, 0.15f, 0.25f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		shader->setUniform("camPos", camera->getPos());
 		shader->setUniform("u_Projection", camera->getProjection());
 		shader->setUniform("view", camera->getView());
-		shader->setUniform("u_Model", trans->GetModel());
-
+		shader->setUniform("camPos", camera->getPos());
+		//
 
 
 		for (unsigned int i = 0; i < sizeof(lightPos) / sizeof(lightPos[0]); i++)
 		{
 				glm::vec3 newPos = lightPos[i] + glm::vec3(sin(app->deltaTime*5.0)*5.0, 0.0, 0.0);
-				shader->setUniform("lightPos[" + std::to_string(i) + "]", lightPos[i]);
+				shader->setUniform("lightPos[" + std::to_string(i) + "]", lightPos[i] += glm::vec3(5.0,0.0,0.0));
 				shader->setUniform("lightColours[" + std::to_string(i) + "]", lightColours[i]);
 		}
+		shader->setUniform("u_Model", trans->GetModel());
 
 		shader->setMesh(mesh);
 		shader->render();

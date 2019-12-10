@@ -1,7 +1,7 @@
 #ifndef _PBR_H_
 #define _PBR_H_
-#include "Application.h"
 
+#include "Application.h"
 #include <stb_image.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -31,6 +31,7 @@ class PBR : public Component
 		glm::vec3 camPos;
 		glm::vec3 lightPos[4];
 		glm::vec3 lightColours[4];
+		glm::vec3 newPos = glm::vec3(0, 0, 0);
 
 
 
