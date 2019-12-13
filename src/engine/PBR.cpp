@@ -17,7 +17,7 @@ PBR::PBR()
 {
 	
 	
-	lightPos[0] = glm::vec3(0.0f, 0.0f, 1.0f);
+	lightPos[0] = glm::vec3(0.0f, 15.0f, 15.0f);
 	lightPos[1] = glm::vec3(10.0f, 10.0f, 10.0f);
 	lightPos[2] = glm::vec3(-10.0f, -10.0f, 10.0f);
 	lightPos[3] = glm::vec3(10.0f, -10.0f, 10.0f);
@@ -43,8 +43,7 @@ void PBR::onDisplay()
 		std::sr1::shared_ptr<Transform> trans = ent->getComponent<Transform>();
 		std::sr1::shared_ptr<Application> app = getApp();
 
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 		shader->setUniform("u_Projection", camera->getProjection());
 		shader->setUniform("view", camera->getView());
 		shader->setUniform("camPos", camera->getPos());
@@ -53,8 +52,8 @@ void PBR::onDisplay()
 
 		for (unsigned int i = 0; i < sizeof(lightPos) / sizeof(lightPos[0]); i++)
 		{
-				glm::vec3 newPos = lightPos[i] + glm::vec3(sin(app->deltaTime*5.0)*5.0, 0.0, 0.0);
-				shader->setUniform("lightPos[" + std::to_string(i) + "]", curLightPos);
+				//glm::vec3 newPos = lightPos[i] + glm::vec3(sin(app->deltaTime*5.0)*5.0, 0.0, 0.0);
+				shader->setUniform("lightPos[" + std::to_string(i) + "]", (lightPos[i]+ curLightPos));
 				shader->setUniform("lightColours[" + std::to_string(i) + "]", lightColours[i]);
 		}
 		shader->setUniform("u_Model", trans->GetModel());
