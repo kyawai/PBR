@@ -31,13 +31,8 @@ public:
 					{
 							return rtn;
 					}
-
 					
 			}
-			if(!rtn)
-			{
-					throw rend::Exception("Failed To Find Component Of Specified Type");
-		  }
 	}
 
 	template<class T>

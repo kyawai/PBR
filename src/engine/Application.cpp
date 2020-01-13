@@ -81,7 +81,7 @@ void Application::Run()
 	std::sr1::shared_ptr<Transform> transform = entities[0]->getComponent<Transform>();
 	//std::sr1::shared_ptr<Transform> transform2 = entities[1]->getComponent<Transform>();
 	//std::sr1::shared_ptr<Camera> camRot = entities[0]->getComponent<Camera>();
-	std::sr1::shared_ptr<PBR> pbr = entities[0]->getComponent<PBR>();
+//	std::sr1::shared_ptr<PBR> pbr = entities[0]->getComponent<PBR>();
 	//std::sr1::shared_ptr<PBR> pbr2 = entities[1]->getComponent<PBR>();
 	bool quit = false;
 	while (!quit)
@@ -104,12 +104,12 @@ void Application::Run()
 					{
 					case SDLK_d:
 							std::cout << "going right" << std::endl;
-							pbr->SetPosition(glm::vec3(1, 0, 0));
+				//			pbr->SetPosition(glm::vec3(1, 0, 0));
 							//pbr2->SetPosition(glm::vec3(0.1, 0, 0));
 							break;
 					case SDLK_a:
 							std::cout << "going left" << std::endl;
-							pbr->SetPosition(glm::vec3(-1, 0, 0));
+						///	pbr->SetPosition(glm::vec3(-1, 0, 0));
 						//	pbr2->SetPosition(glm::vec3(-0.1,0, 0));
 							break;
 					}

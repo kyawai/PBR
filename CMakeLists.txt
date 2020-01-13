@@ -38,8 +38,6 @@ src/engine/Transform.h
 src/engine/Transform.cpp
 src/engine/Environment.h
 src/engine/Environment.cpp
-src/engine/PBR.cpp
-src/engine/PBR.h
 )
 target_link_libraries(engine SDL2 rend OpenAL32)
 
